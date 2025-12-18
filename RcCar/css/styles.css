@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Quicksand, sans-serif;
+    background-color: white;
+    color: #4E6074;
+}
+main{
+    box-shadow: 0 0 4vh rgba(0, 0, 0, 0.2);
+    border-radius: 3vh;
+    margin: 2vh auto;
+    aspect-ratio: 9/15;
+    height: 96vh;
+    display: grid;
+    grid-template-columns: 1.1fr 0.6fr repeat(3, 1.1fr);
+    grid-template-rows: 51vh repeat(3, 13vh);
+    gap: 1vh;
+    padding: 0 3vh;
+}
+@media (max-width: 600px) {
+    main{
+        aspect-ratio: 9/21;
+    }
+}
+div.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3vh;
+    border: 0.2vh solid #4E6074;
+    cursor: pointer;
+    transition: background-color 0.2s ease-out, filter 0.3s ease-out;
+    background-color: lightsteelblue;
+}
+#center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3vh;
+    border: 0.2vh solid #4E6074;
+    background-color: lightsteelblue;
+}
+#top{
+    grid-column: span 5;
+    display: flex;
+    flex-direction: row;;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    padding: 1.5vh;
+    font-size: 3vh;
+}
+p{
+    margin-top: 2vh;
+    padding-bottom: 3vh;
+    border-bottom: 0.2vh solid #4E6074;
+}
+div.button:hover{
+    filter: brightness(0.95);
+}
+div.button.movement.active {  
+    filter: brightness(0.8);
+}
+div.lights-on {
+    background-color: lightyellow;
+}
+img{
+    width: 120%;
+    height: auto;
+}
+#circle{
+    width: 60%;
+    height: auto;
+}
+#imgLeft{
+    transform: rotate(-90deg);
+}
+#imgRight{
+    transform: rotate(90deg);
+}
+#imgBack{
+    transform: rotate(180deg);
+}

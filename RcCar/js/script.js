@@ -1,0 +1,108 @@
+function sendCommand(cmd) {
+    fetch("/cmd?move=" + cmd);
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.repeat) return;
+  
+  if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft'){
+    document.getElementById("left").classList.add('active');
+    sendCommand("left");
+  }
+  if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown'){
+    document.getElementById("back").classList.add('active');
+    sendCommand("back");
+  }
+  if (event.key.toLowerCase() === 'd' || event.key === 'ArrowRight'){
+    document.getElementById("right").classList.add('active');
+    sendCommand("right");
+  }
+  if (event.key.toLowerCase() === 'w' || event.key === 'ArrowUp'){
+    document.getElementById("forward").classList.add('active');
+    sendCommand("forward");
+  }
+  if (event.key == ' '){
+    document.getElementById("stop").classList.add('active');
+    sendCommand("stop");
+  }
+});
+
+window.addEventListener('keyup', (event) => {
+  if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft'){
+    document.getElementById("left").classList.remove('active');
+    sendCommand("stop");
+  }
+  if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown'){
+    document.getElementById("back").classList.remove('active');
+    sendCommand("stop");
+  }
+  if (event.key.toLowerCase() === 'd' || event.key === 'ArrowRight'){
+    document.getElementById("right").classList.remove('active');
+    sendCommand("stop");
+  }
+  if (event.key.toLowerCase() === 'w' || event.key === 'ArrowUp'){
+    document.getElementById("forward").classList.remove('active');
+    sendCommand("stop");
+  }
+  if (event.key == ' '){
+    document.getElementById("stop").classList.remove('active');
+  }
+  if (event.key.toLowerCase() == 'l'){
+    light.classList.toggle('lights-on');
+    if (light.classList.contains('lights-on')) {
+      sendCommand("lightson");
+    }
+    else{
+      sendCommand("lightsoff");
+    }
+  }
+});
+
+
+
+const buttons = document.querySelectorAll('.button');
+
+buttons.forEach(btn => {
+  const command = btn.dataset.cmd;
+
+  const buttonPressed = (e) => {
+    if (e && e.type === 'touchstart') e.preventDefault();
+    
+    btn.classList.add('active');
+    if(command) {
+      sendCommand(command);
+    }
+  }
+
+  const buttonReleased = () => {
+    btn.classList.remove('active');
+    
+    if (btn.id !== "stop" && btn.id !== "lights") {
+      sendCommand("stop");
+    }
+  }
+
+  btn.addEventListener('mousedown', (e) => buttonPressed());
+  btn.addEventListener('mouseup', () => buttonReleased());
+  btn.addEventListener('mouseleave', () => buttonReleased());
+
+  btn.addEventListener('touchstart', (e) => buttonPressed());
+  btn.addEventListener('touchend', () => buttonReleased());
+});
+
+
+
+const light = document.getElementById("lights");
+
+if(light){
+  light.addEventListener('click', () => {
+    light.classList.toggle('lights-on');
+    
+    if (light.classList.contains('lights-on')) {
+      sendCommand("lightson");
+    }
+    else{
+      sendCommand("lightsoff");
+    }
+  });
+}
