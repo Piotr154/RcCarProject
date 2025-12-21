@@ -2,47 +2,56 @@ function sendCommand(cmd) {
     fetch("/cmd?move=" + cmd);
 }
 
+const left = "l";
+const right = "r";
+const forward = "f";
+const back = "b";
+const stop_ = "s";
+const lightson = "j";
+const lightsoff = "c";
+
+
 window.addEventListener('keydown', (event) => {
   if (event.repeat) return;
   
   if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft'){
     document.getElementById("left").classList.add('active');
-    sendCommand("left");
+    sendCommand(left);
   }
   if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown'){
     document.getElementById("back").classList.add('active');
-    sendCommand("back");
+    sendCommand(back);
   }
   if (event.key.toLowerCase() === 'd' || event.key === 'ArrowRight'){
     document.getElementById("right").classList.add('active');
-    sendCommand("right");
+    sendCommand(right);
   }
   if (event.key.toLowerCase() === 'w' || event.key === 'ArrowUp'){
     document.getElementById("forward").classList.add('active');
-    sendCommand("forward");
+    sendCommand(forward);
   }
   if (event.key == ' '){
     document.getElementById("stop").classList.add('active');
-    sendCommand("stop");
+    sendCommand(stop_);
   }
 });
 
 window.addEventListener('keyup', (event) => {
   if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft'){
     document.getElementById("left").classList.remove('active');
-    sendCommand("stop");
+    sendCommand(stop_);
   }
   if (event.key.toLowerCase() === 's' || event.key === 'ArrowDown'){
     document.getElementById("back").classList.remove('active');
-    sendCommand("stop");
+    sendCommand(stop_);
   }
   if (event.key.toLowerCase() === 'd' || event.key === 'ArrowRight'){
     document.getElementById("right").classList.remove('active');
-    sendCommand("stop");
+    sendCommand(stop_);
   }
   if (event.key.toLowerCase() === 'w' || event.key === 'ArrowUp'){
     document.getElementById("forward").classList.remove('active');
-    sendCommand("stop");
+    sendCommand(stop_);
   }
   if (event.key == ' '){
     document.getElementById("stop").classList.remove('active');
@@ -50,10 +59,10 @@ window.addEventListener('keyup', (event) => {
   if (event.key.toLowerCase() == 'l'){
     light.classList.toggle('lights-on');
     if (light.classList.contains('lights-on')) {
-      sendCommand("lightson");
+      sendCommand(lightson);
     }
     else{
-      sendCommand("lightsoff");
+      sendCommand(lightsoff);
     }
   }
 });
@@ -78,7 +87,7 @@ buttons.forEach(btn => {
     btn.classList.remove('active');
     
     if (btn.id !== "stop" && btn.id !== "lights") {
-      sendCommand("stop");
+      sendCommand(stop_);
     }
   }
 
@@ -99,10 +108,10 @@ if(light){
     light.classList.toggle('lights-on');
     
     if (light.classList.contains('lights-on')) {
-      sendCommand("lightson");
+      sendCommand(lightson);
     }
     else{
-      sendCommand("lightsoff");
+      sendCommand(lightsoff);
     }
   });
 }
