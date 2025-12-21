@@ -7,8 +7,7 @@ const right = "r";
 const forward = "f";
 const back = "b";
 const stop_ = "s";
-const lightson = "j";
-const lightsoff = "c";
+const togglelights = "x";
 
 
 window.addEventListener('keydown', (event) => {
@@ -58,12 +57,7 @@ window.addEventListener('keyup', (event) => {
   }
   if (event.key.toLowerCase() == 'l'){
     light.classList.toggle('lights-on');
-    if (light.classList.contains('lights-on')) {
-      sendCommand(lightson);
-    }
-    else{
-      sendCommand(lightsoff);
-    }
+    sendCommand(togglelights);
   }
 });
 
@@ -106,12 +100,6 @@ const light = document.getElementById("lights");
 if(light){
   light.addEventListener('click', () => {
     light.classList.toggle('lights-on');
-    
-    if (light.classList.contains('lights-on')) {
-      sendCommand(lightson);
-    }
-    else{
-      sendCommand(lightsoff);
-    }
+    sendCommand(togglelights);
   });
 }
