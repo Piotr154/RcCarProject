@@ -103,3 +103,10 @@ if(light){
     sendCommand(togglelights);
   });
 }
+
+document.querySelectorAll('div.button').forEach(btn => {
+    btn.addEventListener('contextmenu', function(e){
+        e.preventDefault();
+    });
+});
+
