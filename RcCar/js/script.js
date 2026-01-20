@@ -13,6 +13,11 @@ const togglelights = "x";
 window.addEventListener('keydown', (event) => {
   if (event.repeat) return;
   
+  if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(event.key)) {
+    event.preventDefault();
+  }
+
+  
   if (event.key.toLowerCase() === 'a' || event.key === 'ArrowLeft'){
     document.getElementById("left").classList.add('active');
     sendCommand(left);
@@ -85,11 +90,11 @@ buttons.forEach(btn => {
     }
   }
 
-  btn.addEventListener('mousedown', (e) => buttonPressed());
+  btn.addEventListener('mousedown', e => buttonPressed(e));
   btn.addEventListener('mouseup', () => buttonReleased());
   btn.addEventListener('mouseleave', () => buttonReleased());
 
-  btn.addEventListener('touchstart', (e) => buttonPressed());
+  btn.addEventListener('touchstart', e => buttonPressed(e));
   btn.addEventListener('touchend', () => buttonReleased());
 });
 
@@ -107,6 +112,7 @@ if(light){
 document.querySelectorAll('controls *').forEach(btn => {
     btn.addEventListener('contextmenu', e => e.preventDefault());
 });
+
 
 
 
