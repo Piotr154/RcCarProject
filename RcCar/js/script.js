@@ -104,9 +104,10 @@ if(light){
   });
 }
 
-document.querySelectorAll('div.button').forEach(btn => {
+document.querySelectorAll('controls').forEach(btn => {
     btn.addEventListener('contextmenu', function(e){
         e.preventDefault();
     });
 });
+
 
