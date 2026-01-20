@@ -109,9 +109,10 @@ if(light){
   });
 }
 
-document.querySelectorAll('controls *').forEach(btn => {
+document.querySelectorAll('.notouch img').forEach(btn => {
     btn.addEventListener('contextmenu', e => e.preventDefault());
 });
+
 
 
 
