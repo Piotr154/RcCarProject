@@ -71,31 +71,44 @@ window.addEventListener('keyup', (event) => {
 const buttons = document.querySelectorAll('.button');
 
 buttons.forEach(btn => {
-  const command = btn.dataset.cmd;
+    const command = btn.dataset.cmd;
 
-  const buttonPressed = (e) => {
-    if (e && e.type === 'touchstart') e.preventDefault();
-    
-    btn.classList.add('active');
-    if(command) {
-      sendCommand(command);
-    }
-  }
+    const handleStart = (e) => {
+        if (e.cancelable) e.preventDefault(); 
+                
+        btn.classList.add('active');
+                
+        if (btn.id === "lights") {
+            toggleLights();
+        } else if (command) {
+            sendCommand(command);
+        }
+    };
 
-  const buttonReleased = () => {
-    btn.classList.remove('active');
-    
-    if (btn.id !== "stop" && btn.id !== "lights") {
-      sendCommand(stop_);
-    }
-  }
+    const handleEnd = (e) => {
+        if (e.cancelable) e.preventDefault();
+        btn.classList.remove('active');
+                
+        if (btn.id === "lights") return;
+                
+        if (btn.id !== "stop") {
+            sendCommand(stop_);
+        }
+    };
 
-  btn.addEventListener('mousedown', e => buttonPressed(e));
-  btn.addEventListener('mouseup', () => buttonReleased());
-  btn.addEventListener('mouseleave', () => buttonReleased());
 
-  btn.addEventListener('touchstart', e => buttonPressed(e));
-  btn.addEventListener('touchend', () => buttonReleased());
+    btn.addEventListener('touchstart', handleStart, { passive: false });
+    btn.addEventListener('touchend', handleEnd, { passive: false });
+    btn.addEventListener('touchcancel', handleEnd); 
+
+    btn.addEventListener('mousedown', handleStart);
+    btn.addEventListener('mouseup', handleEnd);
+    btn.addEventListener('mouseleave', handleEnd);
+            
+    btn.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        return false;
+    });
 });
 
 
@@ -109,9 +122,6 @@ if(light){
   });
 }
 
-document.querySelectorAll('.notouch img').forEach(btn => {
-    btn.addEventListener('contextmenu', e => e.preventDefault());
-});
 
 
 
