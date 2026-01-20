@@ -84,7 +84,7 @@ img{
 #imgBack{
     transform: rotate(180deg);
 }
-.notouch, img{
+.notouch{
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -93,6 +93,7 @@ img{
     -webkit-touch-callout: none;
     touch-action: none;
 }
+
 
 
 
