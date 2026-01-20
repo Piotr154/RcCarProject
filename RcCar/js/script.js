@@ -73,43 +73,41 @@ const buttons = document.querySelectorAll('.button');
 buttons.forEach(btn => {
     const command = btn.dataset.cmd;
 
-    const handleStart = (e) => {
-        if (e.cancelable) e.preventDefault(); 
-                
+    btn.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        btn.setPointerCapture(e.pointerId);
+
         btn.classList.add('active');
-                
+
         if (btn.id === "lights") {
-            toggleLights();
-        } else if (command) {
+            btn.classList.toggle('lights-on');
+            sendCommand('x');
+            return;
+        }
+
+        if (command) {
             sendCommand(command);
         }
-    };
-
-    const handleEnd = (e) => {
-        if (e.cancelable) e.preventDefault();
-        btn.classList.remove('active');
-                
-        if (btn.id === "lights") return;
-                
-        if (btn.id !== "stop") {
-            sendCommand(stop_);
-        }
-    };
-
-
-    btn.addEventListener('touchstart', handleStart, { passive: false });
-    btn.addEventListener('touchend', handleEnd, { passive: false });
-    btn.addEventListener('touchcancel', handleEnd); 
-
-    btn.addEventListener('mousedown', handleStart);
-    btn.addEventListener('mouseup', handleEnd);
-    btn.addEventListener('mouseleave', handleEnd);
-            
-    btn.addEventListener('contextmenu', e => {
-        e.preventDefault();
-        return false;
     });
+
+    btn.addEventListener('pointerup', e => {
+        e.preventDefault();
+        btn.releasePointerCapture(e.pointerId);
+        btn.classList.remove('active');
+
+        if (btn.id !== "lights" && btn.id !== "stop") {
+            sendCommand('s');
+        }
+    });
+
+    btn.addEventListener('pointercancel', () => {
+        btn.classList.remove('active');
+        sendCommand('s');
+    });
+
+    btn.addEventListener('contextmenu', e => e.preventDefault());
 });
+
 
 
 
@@ -121,6 +119,7 @@ if(light){
     sendCommand(togglelights);
   });
 }
+
 
 
 
