@@ -9,6 +9,8 @@ const back = "b";
 const stop_ = "s";
 const togglelights = "x";
 
+document.addEventListener('contextmenu', e => e.preventDefault());
+
 
 window.addEventListener('keydown', (event) => {
   if (event.repeat) return;
@@ -107,15 +109,4 @@ buttons.forEach(btn => {
         }
     });
 });
-
-document.addEventListener('contextmenu', e => e.preventDefault());
-
-
-
-
-
-
-
-
-
 
