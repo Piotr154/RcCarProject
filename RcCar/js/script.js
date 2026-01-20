@@ -106,11 +106,10 @@ buttons.forEach(btn => {
             sendCommand('s');
         }
     });
-
-    btn.addEventListener('contextmenu', e => e.preventDefault());
 });
 
 document.addEventListener('contextmenu', e => e.preventDefault());
+
 
 
 
