@@ -106,11 +106,8 @@ if(light){
 
 document.querySelectorAll('controls *').forEach(btn => {
     btn.addEventListener('contextmenu', e => e.preventDefault());
-
-    btn.addEventListener('touchstart', e => {
-        e.preventDefault();
-    }, { passive: false });
 });
+
 
 
 
