@@ -102,7 +102,9 @@ buttons.forEach(btn => {
 
     btn.addEventListener('pointercancel', () => {
         btn.classList.remove('active');
-        sendCommand('s');
+        if (btn.id !== "lights" && btn.id !== "stop") {
+            sendCommand('s');
+        }
     });
 
     btn.addEventListener('contextmenu', e => e.preventDefault());
@@ -119,6 +121,7 @@ if(light){
     sendCommand(togglelights);
   });
 }
+
 
 
 
