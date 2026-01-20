@@ -113,17 +113,6 @@ buttons.forEach(btn => {
 
 
 
-const light = document.getElementById("lights");
-
-if(light){
-  light.addEventListener('click', () => {
-    light.classList.toggle('lights-on');
-    sendCommand(togglelights);
-  });
-}
-
-
-
 
 
 
