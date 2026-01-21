@@ -1,4 +1,8 @@
+let lastCmd = null;
+
 function sendCommand(cmd) {
+    if (cmd === lastCmd) return;
+    lastCmd = cmd;
     fetch("/cmd?move=" + cmd);
 }
 
@@ -69,7 +73,7 @@ window.addEventListener('keyup', (event) => {
 });
 
 
-
+const light = document.getElementById("lights");
 const buttons = document.querySelectorAll('.button');
 
 buttons.forEach(btn => {
@@ -99,6 +103,7 @@ buttons.forEach(btn => {
 
         if (btn.id !== "lights" && btn.id !== "stop") {
             sendCommand('s');
+            lastCmd = null;
         }
     });
 
@@ -106,7 +111,25 @@ buttons.forEach(btn => {
         btn.classList.remove('active');
         if (btn.id !== "lights" && btn.id !== "stop") {
             sendCommand('s');
+            lastCmd = null;
         }
     });
+
+    btn.addEventListener('pointerleave', () => {
+    btn.classList.remove('active');
+    if (btn.id !== "lights" && btn.id !== "stop") {
+        sendCommand('s');
+        lastCmd = null;
+    }
+    });
 });
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        sendCommand('s');
+        document.querySelectorAll('.button.active').forEach(b => b.classList.remove('active'));
+        lastCmd = null;
+    }
+});
+
 
